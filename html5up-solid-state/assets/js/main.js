@@ -146,6 +146,57 @@
 
 
 
+
+// Função para abrir o popup
+function openPopup(button) {
+    // Obter o ID do popup associado ao botão clicado
+    var popupId = button.getAttribute('data-info');
+
+    // Obter o texto do parágrafo dentro do artigo associado ao botão clicado
+    var articleText = button.parentElement.querySelector('p').textContent;
+
+    // Atualizar o texto do popup com o texto do parágrafo
+    document.getElementById(popupId).querySelector('.popup-content p').textContent = articleText;
+
+    // Exibir o popup associado
+    document.getElementById(popupId).style.display = 'block';
+}
+
+// Adicionar evento de clique para abrir o popup para cada botão "Saiba mais"
+document.querySelectorAll('#four .special').forEach(function(button) {
+    button.addEventListener('click', function(event) {
+        event.preventDefault(); // Prevenir o comportamento padrão do link
+
+        // Verificar se o popup já está aberto
+        var popupId = button.getAttribute('data-info');
+        var popup = document.getElementById(popupId);
+        if (popup.style.display === 'block') {
+            return; // Não fazer nada se o popup já estiver aberto
+        }
+
+        // Abrir o popup
+        openPopup(button);
+    });
+});
+
+// Adicionar evento de clique para fechar cada popup
+document.querySelectorAll('.popup .close').forEach(function(closeButton) {
+    closeButton.addEventListener('click', function() {
+        // Ocultar o popup quando o botão de fechar é clicado
+        this.closest('.popup').style.display = 'none';
+    });
+});
+
+
+
+
+
+
+
+
+
+
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 // CURSOR
@@ -203,4 +254,22 @@ addEventListener("mousemove", (e) => {
     x1 = clientX;
     y1 = clientY;
   }
+});
+
+// Selecionar todos os botões "Saiba mais"
+document.querySelectorAll('#four .special').forEach(function(button) {
+    button.addEventListener('click', function() {
+        // Exibir o popup
+        document.getElementById('popup').style.display = 'block';
+        
+        // Obter as informações específicas do botão clicado e atualizar o texto do popup
+        var info = button.getAttribute('data-info');
+        document.getElementById('popup-text').textContent = info;
+    });
+});
+
+// Selecionar o elemento de fechamento do popup e adicionar um evento de clique
+document.querySelector('#popup .close').addEventListener('click', function() {
+    // Ocultar o popup
+    document.getElementById('popup').style.display = 'none';
 });
