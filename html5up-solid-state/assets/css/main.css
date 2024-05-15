@@ -3604,9 +3604,9 @@ body.is-menu-visible #menu .inner {
 
 	#banner {
 		padding: 7em 0 8.25em 0;
-		background: rgb(64,49,159);
+		/* background: rgb(64,49,159);
 		background: radial-gradient(circle, rgba(64,49,159,1) 0%, rgba(48,37,126,1) 23%, rgba(42,30,122,1) 33%, rgba(26,12,116,1) 49%, rgba(27,14,111,1) 61%, rgba(64,50,156,1) 100%);
-		background-size: auto,
+		background-size: auto, */
 			cover;
 		background-position: center,
 			center;
@@ -3716,8 +3716,8 @@ body.is-preload #banner p {
 
 	#wrapper>header {
 		padding: 9em 0 6.25em 0;
-		background: rgb(64,49,159);
-		background: radial-gradient(circle, rgba(64,49,159,1) 0%, rgba(48,37,126,1) 23%, rgba(42,30,122,1) 33%, rgba(26,12,116,1) 49%, rgba(27,14,111,1) 61%, rgba(64,50,156,1) 100%);
+		/* background: rgb(64,49,159);
+		background: radial-gradient(circle, rgba(64,49,159,1) 0%, rgba(48,37,126,1) 23%, rgba(42,30,122,1) 33%, rgba(26,12,116,1) 49%, rgba(27,14,111,1) 61%, rgba(64,50,156,1) 100%); */
 		background-size: auto,
 			cover;
 		background-position: center,
@@ -4225,8 +4225,8 @@ body.is-preload #banner p {
 
 	#footer {
 
-		background: rgb(64,49,159);
-background: radial-gradient(circle, rgba(64,49,159,1) 0%, rgba(48,37,126,1) 23%, rgba(42,30,122,1) 33%, rgba(26,12,116,1) 49%, rgba(27,14,111,1) 61%, rgba(64,50,156,1) 100%);
+		/* background: rgb(64,49,159);
+background: radial-gradient(circle, rgba(64,49,159,1) 0%, rgba(48,37,126,1) 23%, rgba(42,30,122,1) 33%, rgba(26,12,116,1) 49%, rgba(27,14,111,1) 61%, rgba(64,50,156,1) 100%); */
 		background-size: auto,
 			cover;
 		background-position: center,
