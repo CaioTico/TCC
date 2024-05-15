@@ -147,7 +147,7 @@
 
 
 
-// Função para abrir o popup
+/// Função para abrir o popup
 function openPopup(button) {
     // Obter o ID do popup associado ao botão clicado
     var popupId = button.getAttribute('data-info');
@@ -163,7 +163,7 @@ function openPopup(button) {
 }
 
 // Adicionar evento de clique para abrir o popup para cada botão "Saiba mais"
-document.querySelectorAll('#four .special').forEach(function(button) {
+document.querySelectorAll('.special').forEach(function(button) {
     button.addEventListener('click', function(event) {
         event.preventDefault(); // Prevenir o comportamento padrão do link
 
@@ -179,13 +179,23 @@ document.querySelectorAll('#four .special').forEach(function(button) {
     });
 });
 
-// Adicionar evento de clique para fechar cada popup
+// Adicionar evento de clique para fechar cada popup ao clicar no botão de fechar
 document.querySelectorAll('.popup .close').forEach(function(closeButton) {
     closeButton.addEventListener('click', function() {
         // Ocultar o popup quando o botão de fechar é clicado
         this.closest('.popup').style.display = 'none';
     });
 });
+
+// Adicionar evento de clique para fechar o popup ao clicar fora do conteúdo
+document.querySelectorAll('.popup').forEach(function(popup) {
+    popup.addEventListener('click', function(event) {
+        if (event.target === this) {
+            this.style.display = 'none';
+        }
+    });
+});
+
 
 
 
