@@ -219,7 +219,6 @@ document.querySelectorAll('.popup').forEach(function(popup) {
             console.error('URL do alvo não encontrada:', this);
         }
     });
-});
 
 
 
