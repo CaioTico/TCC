@@ -200,11 +200,42 @@ document.querySelectorAll('.popup').forEach(function(popup) {
 
 
 
-
-
+//CÓDIGO PARA ABRIR AS BOLINHAS PARA OUTRAS PÁGINAS
 
 // document.getElementById('bolinha-um').forEach(function(element) {
     document.getElementById('bolinha-um').addEventListener('click', function(event) {
+        // Previne a navegação padrão do link
+        event.preventDefault();
+
+        // Obtém o URL do href do link
+        var targetUrl = this.getAttribute('href');
+
+        // Verifica se o URL não está vazio
+        if (targetUrl) {
+            // Redireciona para a URL
+            window.location.href = targetUrl;
+        } else {
+            console.error('URL do alvo não encontrada:', this);
+        }
+    });
+
+	document.getElementById('bolinha-dois').addEventListener('click', function(event) {
+        // Previne a navegação padrão do link
+        event.preventDefault();
+
+        // Obtém o URL do href do link
+        var targetUrl = this.getAttribute('href');
+
+        // Verifica se o URL não está vazio
+        if (targetUrl) {
+            // Redireciona para a URL
+            window.location.href = targetUrl;
+        } else {
+            console.error('URL do alvo não encontrada:', this);
+        }
+    });
+
+	document.getElementById('bolinha-tres').addEventListener('click', function(event) {
         // Previne a navegação padrão do link
         event.preventDefault();
 
