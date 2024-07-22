@@ -16,6 +16,15 @@
             /* adiciona um padding razoável ao body */
             font-family: Arial, sans-serif;
             /* adiciona uma fonte padrão */
+            background: rgb(64, 49, 159);
+            background: radial-gradient(circle, rgba(64, 49, 159, 1) 0%, rgba(48, 37, 126, 1) 23%, rgba(42, 30, 122, 1) 33%, rgba(26, 12, 116, 1) 49%, rgba(27, 14, 111, 1) 61%, rgba(64, 50, 156, 1) 100%);
+            ;
+            background-size: auto,
+                cover;
+            background-attachment: fixed,
+                fixed;
+            background-position: center,
+                center;
         }
 
         .container {
@@ -140,37 +149,37 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/splidejs/4.1.4/js/splide.js"
-       integrity="sha512-sl3gwaqOnxE9dQ3IY+2A8pDjhOhOFqyfamT7GSaT3Cbz8svrV1aWHOGZ1ZG1GExNLpK5VvRGD5ULSHEQ8fajGg=="
-       crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<script>
-       document.addEventListener('DOMContentLoaded', function () {
-           var splide = new Splide('.splide', {
-               type: 'slide',
-               perPage: 3,
-               perMove: 1,
-               loop: true,
-               gap: '15px',
-               width: 'min(1200px, 100% )',
-               // rewind     : true,
-               breakpoints: {
-                   992: {
-                       perPage: 2,
-                   },
-                   480: {
-                       perPage: 1,
-                       rewind: true,
-                   },
-                   classes: {
-                       arrows: 'splide__arrows your-class-arrows',
-                       arrow: 'splide__arrow your-class-arrow',
-                       prev: 'splide__arrow--prev your-class-prev',
-                       next: 'splide__arrow--next your-class-next',
-                   },
-               }
-           });
-           splide.mount();
-       });
-</script>
+        integrity="sha512-sl3gwaqOnxE9dQ3IY+2A8pDjhOhOFqyfamT7GSaT3Cbz8svrV1aWHOGZ1ZG1GExNLpK5VvRGD5ULSHEQ8fajGg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var splide = new Splide('.splide', {
+                type: 'slide',
+                perPage: 3,
+                perMove: 1,
+                loop: true,
+                gap: '15px',
+                width: 'min(1200px, 100% )',
+                // rewind     : true,
+                breakpoints: {
+                    992: {
+                        perPage: 2,
+                    },
+                    480: {
+                        perPage: 1,
+                        rewind: true,
+                    },
+                    classes: {
+                        arrows: 'splide__arrows your-class-arrows',
+                        arrow: 'splide__arrow your-class-arrow',
+                        prev: 'splide__arrow--prev your-class-prev',
+                        next: 'splide__arrow--next your-class-next',
+                    },
+                }
+            });
+            splide.mount();
+        });
+    </script>
 </body>
 
 </html>
