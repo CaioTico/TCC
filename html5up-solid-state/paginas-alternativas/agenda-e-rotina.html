@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset='utf-8'>
     <meta http-equiv='X-UA-Compatible' content='IE=edge'>
@@ -7,8 +8,195 @@
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/html5up-solid-state/assets/css/main.css'>
     <script src=''></script>
+    <style>
+        body {
+            font-family: sans-serif;
+            padding: 30px;
+        }
+
+        /* .container {
+            display: flex;
+        } */
+
+        .calendar {
+            width: 80%;
+            border-collapse: collapse;
+            margin-right: 20px;
+        }
+
+        .calendar th {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .calendar td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .calendar .day {
+            font-weight: bold;
+        }
+
+        .calendar .today {
+            background-color: #e0e0e0;
+        }
+
+        .sidebar {
+            width: 20%;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .agenda-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .agenda-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .sidebar .agenda-item .name {
+            font-weight: bold;
+        }
+
+        .sidebar .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .sidebar .button-group button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .sidebar .button-group button:hover {
+            opacity: 0.8;
+        }
+    </style>
 </head>
+
 <body>
     <h1>Agenda e rotina</h1>
+    <div class="container">
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>DOM.</th>
+                    <th>SEG.</th>
+                    <th>TER.</th>
+                    <th>QUA.</th>
+                    <th>QUI.</th>
+                    <th>SEX.</th>
+                    <th>SÁB.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="day" data-day="21">21</td>
+                    <td class="day today" data-day="22">22</td>
+                    <td class="day" data-day="23">23</td>
+                    <td class="day" data-day="24">24</td>
+                    <td class="day" data-day="25">25</td>
+                    <td class="day" data-day="26">26</td>
+                    <td class="day" data-day="27">27</td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="sidebar">
+            <h2>Minhas agendas</h2>
+            <ul>
+                <li class="agenda-item">
+                    <input type="checkbox" checked>
+                    <span class="name">Davi Bittancourt</span>
+                </li>
+                <li class="agenda-item">
+                    <input type="checkbox" checked>
+                    <span class="name">Aniversários</span>
+                </li>
+                <li class="agenda-item">
+                    <input type="checkbox" checked>
+                    <span class="name">Tarefas</span>
+                </li>
+            </ul>
+            <h2>Outras agendas</h2>
+            <ul>
+                <li class="agenda-item">
+                    <input type="checkbox" checked>
+                    <span class="name">Feriados no Brasil</span>
+                </li>
+            </ul>
+            <div class="button-group">
+                <button id="add-task-btn">Adicionar tarefa</button>
+                <button>Criar evento</button>
+            </div>
+            <form id="add-task-form" style="display: none;">
+                <label for="task-name">Nome da tarefa:</label>
+                <input type="text" id="task-name" name="task-name"><br><br>
+                <label for="task-day">Dia da tarefa:</label>
+                <select id="task-day" name="task-day">
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                </select><br><br>
+                <input type="submit" value="Adicionar tarefa">
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const addTaskBtn = document.getElementById('add-task-btn');
+        const addTaskForm = document.getElementById('add-task-form');
+
+        addTaskBtn.addEventListener('click', () => {
+            addTaskForm.style.display = 'block';
+        });
+
+        addTaskForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const taskName = document.getElementById('task-name').value;
+            const taskDay = document.getElementById('task-day').value;
+            const calendarRows = document.querySelectorAll('.calendar tbody tr');
+            const taskDayIndex = Array.prototype.indexOf.call(calendarRows[0].children, document.querySelector(`td.day[data-day="${taskDay}"]`));
+
+            if (taskDayIndex !== -1) {
+                const taskCell = calendarRows[0].children[taskDayIndex];
+                const taskList = taskCell.querySelector('ul') || document.createElement('ul');
+                taskCell.appendChild(taskList);
+                const taskListItem = document.createElement('li');
+                taskListItem.textContent = taskName;
+                taskList.appendChild(taskListItem);
+            }
+
+            addTaskForm.style.display = 'none';
+            document.getElementById('task-name').value = '';
+        });
+    </script>
 </body>
+
 </html>
