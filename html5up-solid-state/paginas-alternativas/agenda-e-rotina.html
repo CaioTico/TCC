@@ -22,25 +22,25 @@
                 center;
         }
 
-        /* .container {
-            display: flex;
-        } */
-
-        h1{
+        h1 {
             color: white;
+            text-align: center;
         }
 
         .calendar {
             width: 80%;
             border-collapse: collapse;
-            margin-right: 20px;
+            position: relative;
             color: #fff;
+            left: 10vw;
+
         }
 
         .calendar th {
             background-color: #f2f2f2;
             padding: 10px;
             text-align: center;
+            color: rgb(64, 49, 159);
         }
 
         .calendar td {
@@ -107,6 +107,10 @@
         .sidebar .button-group button:hover {
             opacity: 0.8;
         }
+
+        label {
+            padding: 15px;
+        }
     </style>
 </head>
 
@@ -127,48 +131,84 @@
             </thead>
             <tbody>
                 <tr>
+                    <td class="day" data-day="1">1</td>
+                    <td class="day" data-day="2">2</td>
+                    <td class="day" data-day="3">3</td>
+                    <td class="day" data-day="4">4</td>
+                    <td class="day" data-day="5">5</td>
+                    <td class="day" data-day="6">6</td>
+                    <td class="day" data-day="7">7</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="8">8</td>
+                    <td class="day" data-day="9">9</td>
+                    <td class="day" data-day="10">10</td>
+                    <td class="day" data-day="11">11</td>
+                    <td class="day" data-day="12">12</td>
+                    <td class="day" data-day="13">13</td>
+                    <td class="day" data-day="14">14</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="15">15</td>
+                    <td class="day" data-day="16">16</td>
+                    <td class="day" data-day="17">17</td>
+                    <td class="day" data-day="18">18</td>
+                    <td class="day" data-day="19">19</td>
+                    <td class="day" data-day="20">20</td>
                     <td class="day" data-day="21">21</td>
-                    <td class="day today" data-day="22">22</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="22">22</td>
                     <td class="day" data-day="23">23</td>
                     <td class="day" data-day="24">24</td>
                     <td class="day" data-day="25">25</td>
                     <td class="day" data-day="26">26</td>
                     <td class="day" data-day="27">27</td>
+                    <td class="day" data-day="28">28</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="29">29</td>
+                    <td class="day" data-day="30">30</td>
+                    <td class="day" data-day="31">31</td>
+                    <td colspan="4"></td>
                 </tr>
             </tbody>
         </table>
         <div class="sidebar">
-            <h2>Minhas agendas</h2>
-            <ul>
-                <li class="agenda-item">
-                    <input type="checkbox" checked>
-                    <span class="name">Davi Bittancourt</span>
-                </li>
-                <li class="agenda-item">
-                    <input type="checkbox" checked>
-                    <span class="name">Aniversários</span>
-                </li>
-                <li class="agenda-item">
-                    <input type="checkbox" checked>
-                    <span class="name">Tarefas</span>
-                </li>
-            </ul>
-            <h2>Outras agendas</h2>
-            <ul>
-                <li class="agenda-item">
-                    <input type="checkbox" checked>
-                    <span class="name">Feriados no Brasil</span>
-                </li>
-            </ul>
+            <form id="formularioDeAdicaoDeTarefa">
+                <h2>Gerenciar Tarefas</h2>
+                <ul id="lista-de-tarefas">
+
+                </ul>
+            </form>
             <div class="button-group">
                 <button id="add-task-btn">Adicionar tarefa</button>
-                <button>Criar evento</button>
             </div>
             <form id="add-task-form" style="display: none;">
                 <label for="task-name">Nome da tarefa:</label>
-                <input type="text" id="task-name" name="task-name"><br><br>
+                <input type="text" id="task-name" name="task-name"><br>
                 <label for="task-day">Dia da tarefa:</label>
                 <select id="task-day" name="task-day">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
                     <option value="21">21</option>
                     <option value="22">22</option>
                     <option value="23">23</option>
@@ -176,40 +216,135 @@
                     <option value="25">25</option>
                     <option value="26">26</option>
                     <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
                 </select><br><br>
                 <input type="submit" value="Adicionar tarefa">
             </form>
+            <div id="gerenciamento-de-tarefas">
+                <h2>Tarefas Adicionadas</h2>
+                <ul id="lista-de-tarefas-gerenciamento">
+                    <!-- Lista de tarefas adicionadas aqui -->
+                </ul>
+            </div>
         </div>
-    </div>
+        <script>
+            const addTaskBtn = document.getElementById('add-task-btn');
+            const addTaskForm = document.getElementById('add-task-form');
 
-    <script>
-        const addTaskBtn = document.getElementById('add-task-btn');
-        const addTaskForm = document.getElementById('add-task-form');
+            addTaskBtn.addEventListener('click', () => {
+                addTaskForm.style.display = 'block';
+            });
 
-        addTaskBtn.addEventListener('click', () => {
-            addTaskForm.style.display = 'block';
-        });
+            addTaskForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const taskName = document.getElementById('task-name').value;
+                const taskDay = document.getElementById('task-day').value;
+                const calendarCells = document.querySelectorAll('.calendar td.day');
 
-        addTaskForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const taskName = document.getElementById('task-name').value;
-            const taskDay = document.getElementById('task-day').value;
-            const calendarRows = document.querySelectorAll('.calendar tbody tr');
-            const taskDayIndex = Array.prototype.indexOf.call(calendarRows[0].children, document.querySelector(`td.day[data-day="${taskDay}"]`));
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const taskList = cell.querySelector('ul') || document.createElement('ul');
+                        cell.appendChild(taskList);
+                        const taskListItem = document.createElement('li');
+                        taskListItem.textContent = taskName;
+                        taskList.appendChild(taskListItem);
+                    }
+                });
 
-            if (taskDayIndex !== -1) {
-                const taskCell = calendarRows[0].children[taskDayIndex];
-                const taskList = taskCell.querySelector('ul') || document.createElement('ul');
-                taskCell.appendChild(taskList);
-                const taskListItem = document.createElement('li');
-                taskListItem.textContent = taskName;
-                taskList.appendChild(taskListItem);
-            }
+                addTaskForm.style.display = 'none';
+                document.getElementById('task-name').value = '';
+            });
 
-            addTaskForm.style.display = 'none';
-            document.getElementById('task-name').value = '';
-        });
-    </script>
+            const today = new Date();
+            const todayDay = today.getDate();
+            const calendarCells = document.querySelectorAll('.calendar td.day');
+
+            calendarCells.forEach((cell) => {
+                if (cell.dataset.day == todayDay) {
+                    cell.classList.add('today');
+                }
+            });
+        </script>
+        <script>
+            // Seleciona o formulário de adição de tarefa
+            const formularioDeAdicaoDeTarefa = document.getElementById('formularioDeAdicaoDeTarefa');
+
+            // Seleciona a lista de gerenciamento de tarefas
+            const listaDeTarefasGerenciamento = document.getElementById('lista-de-tarefas-gerenciamento');
+
+            // Adiciona um evento de submit ao formulário
+            formularioDeAdicaoDeTarefa.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const nomeDaTarefa = document.getElementById('nome-da-tarefa').value;
+                const diaDaTarefa = document.getElementById('dia-da-tarefa').value;
+                const celulasDoCalendario = document.querySelectorAll('.calendario td.dia');
+
+                celulasDoCalendario.forEach((celula) => {
+                    if (celula.dataset.dia === diaDaTarefa) {
+                        const listaDeTarefasDoDia = celula.querySelector('ul') || document.createElement('ul');
+                        celula.appendChild(listaDeTarefasDoDia);
+                        const itemDaTarefa = document.createElement('li');
+                        itemDaTarefa.textContent = nomeDaTarefa;
+                        listaDeTarefasDoDia.appendChild(itemDaTarefa);
+
+                        // Adiciona a tarefa à lista de gerenciamento de tarefas
+                        const itemDaTarefaGerenciamento = document.createElement('li');
+                        itemDaTarefaGerenciamento.textContent = `${nomeDaTarefa} - ${diaDaTarefa}`;
+                        itemDaTarefaGerenciamento.dataset.nome = nomeDaTarefa;
+                        itemDaTarefaGerenciamento.dataset.dia = diaDaTarefa;
+                        listaDeTarefasGerenciamento.appendChild(itemDaTarefaGerenciamento);
+
+                        // Adiciona botões de edição e exclusão
+                        const botaoEditar = document.createElement('button');
+                        botaoEditar.textContent = 'Editar';
+                        botaoEditar.addEventListener('click', () => {
+                            // Abre um formulário de edição
+                            const formularioDeEdicao = document.createElement('form');
+                            formularioDeEdicao.innerHTML = `
+          <label for="nome-da-tarefa-editado">Nome da Tarefa:</label>
+          <input type="text" id="nome-da-tarefa-editado" value="${nomeDaTarefa}">
+          <label for="dia-da-tarefa-editado">Dia da Tarefa:</label>
+          <select id="dia-da-tarefa-editado" value="${diaDaTarefa}">
+            <!-- Opções de dia aqui -->
+          </select><br><br>
+          <input type="submit" value="Salvar">
+        `;
+                            itemDaTarefaGerenciamento.appendChild(formularioDeEdicao);
+
+                            // Adiciona evento de submit ao formulário de edição
+                            formularioDeEdicao.addEventListener('submit', (e) => {
+                                e.preventDefault();
+                                const nomeDaTarefaEditado = document.getElementById('nome-da-tarefa-editado').value;
+                                const diaDaTarefaEditado = document.getElementById('dia-da-tarefa-editado').value;
+
+                                // Atualiza a tarefa na lista de gerenciamento
+                                itemDaTarefaGerenciamento.textContent = `${nomeDaTarefaEditado} - ${diaDaTarefaEditado}`;
+                                itemDaTarefaGerenciamento.dataset.nome = nomeDaTarefaEditado;
+                                itemDaTarefaGerenciamento.dataset.dia = diaDaTarefaEditado;
+
+                                // Remove o formulário de edição
+                                formularioDeEdicao.remove();
+                            });
+                        });
+                        const botaoExcluir = document.createElement('button');
+                        botaoExcluir.textContent = 'Excluir';
+                        botaoExcluir.addEventListener('click', () => {
+                            // Remove a tarefa da lista de gerenciamento
+                            itemDaTarefaGerenciamento.remove();
+                        });
+                        itemDaTarefaGerenciamento.appendChild(botaoEditar);
+                        itemDaTarefaGerenciamento.appendChild(botaoExcluir);
+                    }
+                });
+
+                // Limpa os campos do formulário
+                document.getElementById('nome-da-tarefa').value = '';
+                document.getElementById('dia-da-tarefa').value = '';
+            });
+        </script>
 </body>
 
 </html>
