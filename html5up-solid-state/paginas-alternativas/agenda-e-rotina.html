@@ -12,13 +12,9 @@
             padding: 30px;
             background: rgb(64, 49, 159);
             background: radial-gradient(circle, rgba(64, 49, 159, 1) 0%, rgba(48, 37, 126, 1) 23%, rgba(42, 30, 122, 1) 33%, rgba(26, 12, 116, 1) 49%, rgba(27, 14, 111, 1) 61%, rgba(64, 50, 156, 1) 100%);
-            ;
-            background-size: auto,
-                cover;
-            background-attachment: fixed,
-                fixed;
-            background-position: center,
-                center;
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
         }
 
         h1 {
@@ -36,7 +32,6 @@
             position: relative;
             color: #fff;
             left: 10vw;
-
         }
 
         .calendar th {
@@ -98,16 +93,19 @@
             margin-top: 20px;
         }
 
-        .sidebar .button-group button {
+        .btn {
+            margin: 5px;
             padding: 10px 20px;
             background-color: #007bff;
             color: #fff;
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            text-transform: uppercase;
         }
 
-        .sidebar .button-group button:hover {
+        .btn:hover {
             opacity: 0.8;
         }
 
@@ -182,6 +180,30 @@
             color: #ffffff;
             background: #2e3141;
         }
+
+        #lista-de-tarefas-gerenciamento {
+            -webkit-text-size-adjust: none;
+            box-sizing: inherit;
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            font-size: 16.5pt;
+            font-weight: 300;
+            line-height: 1.65;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.025);
+            border-radius: 5px;
+            border: solid 2px rgba(255, 255, 255, 0.125);
+            color: #fff;
+            display: block;
+            outline: 0;
+            padding: 10px;
+            text-decoration: none;
+            width: 190%;
+            background-size: 1.25rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+            text-overflow: ellipsis;
+            height: auto;
+        }
     </style>
 </head>
 
@@ -247,21 +269,21 @@
         </table>
         <div class="sidebar">
             <form id="formularioDeAdicaoDeTarefa">
-                <h2>Gerenciar Tarefas</h2>
-                <ul id="lista-de-tarefas">
-
-                </ul>
+                <h2>Adicionar Tarefas</h2>
+                <ul id="lista-de-tarefas"> </ul>
             </form>
             <div class="button-group">
-                <button id="add-task-btn">Adicionar tarefa</button>
+                <button id="add-task-btn" class="btn">Adicionar tarefa</button>
             </div>
             <form id="add-task-form" style="display: none;">
                 <label for="task-name">Nome da tarefa:</label>
                 <input type="text" id="task-name" name="task-name"><br>
                 <label for="task-day">Dia da tarefa:</label>
                 <select id="task-day" name="task-day">
+                    <!-- Opções de dias -->
                     <option value="1">1</option>
                     <option value="2">2</option>
+                    <!-- Continue para os dias 3 a 31 -->
                     <option value="3">3</option>
                     <option value="4">4</option>
                     <option value="5">5</option>
@@ -296,9 +318,7 @@
             </form>
             <div id="gerenciamento-de-tarefas">
                 <h2>Tarefas Adicionadas</h2>
-                <ul id="lista-de-tarefas-gerenciamento">
-                    <!-- Lista de tarefas adicionadas aqui -->
-                </ul>
+                <ul id="lista-de-tarefas-gerenciamento"></ul>
             </div>
         </div>
         <script>
@@ -313,21 +333,86 @@
                 e.preventDefault();
                 const taskName = document.getElementById('task-name').value;
                 const taskDay = document.getElementById('task-day').value;
-                const calendarCells = document.querySelectorAll('.calendar td.day');
 
+                const calendarCells = document.querySelectorAll('.calendar td.day');
                 calendarCells.forEach((cell) => {
                     if (cell.dataset.day === taskDay) {
                         const taskList = cell.querySelector('ul') || document.createElement('ul');
-                        cell.appendChild(taskList);
+                        if (!cell.querySelector('ul')) {
+                            cell.appendChild(taskList);
+                        }
                         const taskListItem = document.createElement('li');
                         taskListItem.textContent = taskName;
                         taskList.appendChild(taskListItem);
                     }
                 });
 
+                addTaskToManagement(taskName, taskDay);
+
                 addTaskForm.style.display = 'none';
                 document.getElementById('task-name').value = '';
             });
+
+            function addTaskToManagement(taskName, taskDay) {
+                const taskManagementList = document.getElementById('lista-de-tarefas-gerenciamento');
+                const listItem = document.createElement('li');
+                listItem.textContent = `${taskName} - Dia ${taskDay}`;
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.className = 'btn'; // Aplica o estilo de botão
+                editButton.addEventListener('click', () => {
+                    editTask(listItem, taskName, taskDay);
+                });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Excluir';
+                deleteButton.className = 'btn'; // Aplica o estilo de botão
+                deleteButton.addEventListener('click', () => {
+                    listItem.remove();
+                    removeTaskFromCalendar(taskName, taskDay);
+                });
+
+                listItem.appendChild(editButton);
+                listItem.appendChild(deleteButton);
+                taskManagementList.appendChild(listItem);
+            }
+
+            function removeTaskFromCalendar(taskName, taskDay) {
+                const calendarCells = document.querySelectorAll('.calendar td.day');
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const tasks = cell.querySelectorAll('ul li');
+                        tasks.forEach((task) => {
+                            if (task.textContent === taskName) {
+                                task.remove();
+                            }
+                        });
+                    }
+                });
+            }
+
+            function editTask(listItem, oldTaskName, oldTaskDay) {
+                const newTaskName = prompt('Editar nome da tarefa:', oldTaskName);
+                if (newTaskName) {
+                    listItem.firstChild.textContent = `${newTaskName} - Dia ${oldTaskDay}`;
+                    updateTaskInCalendar(oldTaskName, oldTaskDay, newTaskName);
+                }
+            }
+
+            function updateTaskInCalendar(oldTaskName, taskDay, newTaskName) {
+                const calendarCells = document.querySelectorAll('.calendar td.day');
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const tasks = cell.querySelectorAll('ul li');
+                        tasks.forEach((task) => {
+                            if (task.textContent === oldTaskName) {
+                                task.textContent = newTaskName;
+                            }
+                        });
+                    }
+                });
+            }
 
             const today = new Date();
             const todayDay = today.getDate();
@@ -339,83 +424,7 @@
                 }
             });
         </script>
-        <script>
-            // Seleciona o formulário de adição de tarefa
-            const formularioDeAdicaoDeTarefa = document.getElementById('formularioDeAdicaoDeTarefa');
-
-            // Seleciona a lista de gerenciamento de tarefas
-            const listaDeTarefasGerenciamento = document.getElementById('lista-de-tarefas-gerenciamento');
-
-            // Adiciona um evento de submit ao formulário
-            formularioDeAdicaoDeTarefa.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const nomeDaTarefa = document.getElementById('nome-da-tarefa').value;
-                const diaDaTarefa = document.getElementById('dia-da-tarefa').value;
-                const celulasDoCalendario = document.querySelectorAll('.calendario td.dia');
-
-                celulasDoCalendario.forEach((celula) => {
-                    if (celula.dataset.dia === diaDaTarefa) {
-                        const listaDeTarefasDoDia = celula.querySelector('ul') || document.createElement('ul');
-                        celula.appendChild(listaDeTarefasDoDia);
-                        const itemDaTarefa = document.createElement('li');
-                        itemDaTarefa.textContent = nomeDaTarefa;
-                        listaDeTarefasDoDia.appendChild(itemDaTarefa);
-
-                        // Adiciona a tarefa à lista de gerenciamento de tarefas
-                        const itemDaTarefaGerenciamento = document.createElement('li');
-                        itemDaTarefaGerenciamento.textContent = `${nomeDaTarefa} - ${diaDaTarefa}`;
-                        itemDaTarefaGerenciamento.dataset.nome = nomeDaTarefa;
-                        itemDaTarefaGerenciamento.dataset.dia = diaDaTarefa;
-                        listaDeTarefasGerenciamento.appendChild(itemDaTarefaGerenciamento);
-
-                        // Adiciona botões de edição e exclusão
-                        const botaoEditar = document.createElement('button');
-                        botaoEditar.textContent = 'Editar';
-                        botaoEditar.addEventListener('click', () => {
-                            // Abre um formulário de edição
-                            const formularioDeEdicao = document.createElement('form');
-                            formularioDeEdicao.innerHTML = `
-          <label for="nome-da-tarefa-editado">Nome da Tarefa:</label>
-          <input type="text" id="nome-da-tarefa-editado" value="${nomeDaTarefa}">
-          <label for="dia-da-tarefa-editado">Dia da Tarefa:</label>
-          <select id="dia-da-tarefa-editado" value="${diaDaTarefa}">
-            <!-- Opções de dia aqui -->
-          </select><br><br>
-          <input type="submit" value="Salvar">
-        `;
-                            itemDaTarefaGerenciamento.appendChild(formularioDeEdicao);
-
-                            // Adiciona evento de submit ao formulário de edição
-                            formularioDeEdicao.addEventListener('submit', (e) => {
-                                e.preventDefault();
-                                const nomeDaTarefaEditado = document.getElementById('nome-da-tarefa-editado').value;
-                                const diaDaTarefaEditado = document.getElementById('dia-da-tarefa-editado').value;
-
-                                // Atualiza a tarefa na lista de gerenciamento
-                                itemDaTarefaGerenciamento.textContent = `${nomeDaTarefaEditado} - ${diaDaTarefaEditado}`;
-                                itemDaTarefaGerenciamento.dataset.nome = nomeDaTarefaEditado;
-                                itemDaTarefaGerenciamento.dataset.dia = diaDaTarefaEditado;
-
-                                // Remove o formulário de edição
-                                formularioDeEdicao.remove();
-                            });
-                        });
-                        const botaoExcluir = document.createElement('button');
-                        botaoExcluir.textContent = 'Excluir';
-                        botaoExcluir.addEventListener('click', () => {
-                            // Remove a tarefa da lista de gerenciamento
-                            itemDaTarefaGerenciamento.remove();
-                        });
-                        itemDaTarefaGerenciamento.appendChild(botaoEditar);
-                        itemDaTarefaGerenciamento.appendChild(botaoExcluir);
-                    }
-                });
-
-                // Limpa os campos do formulário
-                document.getElementById('nome-da-tarefa').value = '';
-                document.getElementById('dia-da-tarefa').value = '';
-            });
-        </script>
+    </div>
 </body>
 
 </html>
