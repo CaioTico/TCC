@@ -6,9 +6,424 @@
     <title>Adicionar tarefas</title>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <link rel='stylesheet' type='text/css' media='screen' href='/html5up-solid-state/assets/css/main.css'>
-    <script src=''></script>
+    <script src=''></script><style>
+        body {
+            font-family: sans-serif;
+            padding: 30px;
+            background: rgb(64, 49, 159);
+            background: radial-gradient(circle, rgba(64, 49, 159, 1) 0%, rgba(48, 37, 126, 1) 23%, rgba(42, 30, 122, 1) 33%, rgba(26, 12, 116, 1) 49%, rgba(27, 14, 111, 1) 61%, rgba(64, 50, 156, 1) 100%);
+            background-size: cover;
+            background-attachment: fixed;
+            background-position: center;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+        }
+
+        h2 {
+            color: #fff;
+        }
+
+        .calendar {
+            width: 80%;
+            border-collapse: collapse;
+            position: relative;
+            color: #fff;
+            left: 10vw;
+        }
+
+        .calendar th {
+            background-color: #f2f2f2;
+            padding: 10px;
+            text-align: center;
+            color: rgb(64, 49, 159);
+        }
+
+        .calendar td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .calendar .day {
+            font-weight: bold;
+        }
+
+        .calendar .today {
+            background-color: #e0e0e0;
+        }
+
+        .sidebar {
+            width: 20%;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 10px;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .sidebar li {
+            margin-bottom: 5px;
+        }
+
+        .sidebar .agenda-item {
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar .agenda-item input[type="checkbox"] {
+            margin-right: 10px;
+        }
+
+        .sidebar .agenda-item .name {
+            font-weight: bold;
+        }
+
+        .sidebar .button-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .btn {
+            margin: 5px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s ease-in-out;
+            text-transform: uppercase;
+        }
+
+        .btn:hover {
+            opacity: 0.8;
+        }
+
+        label {
+            padding: 15px;
+        }
+
+        input {
+            -webkit-text-size-adjust: none;
+            box-sizing: inherit;
+            margin-bottom: 0;
+            appearance: none;
+            transition: background-color 0.2s ease-in-out;
+            background-color: transparent;
+            border-radius: 5px;
+            border: 0;
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.125);
+            color: #ffffff !important;
+            cursor: pointer;
+            display: inline-block;
+            font-family: Raleway, Helvetica, sans-serif;
+            font-size: 0.8em;
+            font-weight: 700;
+            height: 3.75em;
+            letter-spacing: 0.1em;
+            line-height: 3.75em;
+            padding: 0 2.25em;
+            text-align: center;
+            text-decoration: none;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        label {
+            color: #ffffff;
+            display: block;
+            font-family: Raleway, Helvetica, sans-serif;
+            font-size: 0.8em;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            margin: 0 0 0.7em 0;
+            text-transform: uppercase;
+        }
+
+        select {
+            -webkit-text-size-adjust: none;
+            box-sizing: inherit;
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            font-size: 16.5pt;
+            font-weight: 300;
+            line-height: 1.65;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.025);
+            border-radius: 5px;
+            border: solid 2px rgba(255, 255, 255, 0.125);
+            color: #fff;
+            display: block;
+            outline: 0;
+            padding: 0 1em;
+            text-decoration: none;
+            width: 55%;
+            background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40' preserveAspectRatio='none' viewBox='0 0 40 40'%3E%3Cpath d='M9.4,12.3l10.4,10.4l10.4-10.4c0.2-0.2,0.5-0.4,0.9-0.4c0.3,0,0.6,0.1,0.9,0.4l3.3,3.3c0.2,0.2,0.4,0.5,0.4,0.9 c0,0.4-0.1,0.6-0.4,0.9L20.7,31.9c-0.2,0.2-0.5,0.4-0.9,0.4c-0.3,0-0.6-0.1-0.9-0.4L4.3,17.3c-0.2-0.2-0.4-0.5-0.4-0.9 c0-0.4,0.1-0.6,0.4-0.9l3.3-3.3c0.2-0.2,0.5-0.4,0.9-0.4S9.1,12.1,9.4,12.3z' fill='rgba(255, 255, 255, 0.125)' /%3E%3C/svg%3E");
+            background-size: 1.25rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+            padding-right: 2.75em;
+            text-overflow: ellipsis;
+            height: 2.75em;
+        }
+
+        select option {
+            color: #ffffff;
+            background: #2e3141;
+        }
+
+        #lista-de-tarefas-gerenciamento {
+            -webkit-text-size-adjust: none;
+            box-sizing: inherit;
+            font-family: "Source Sans Pro", Helvetica, sans-serif;
+            font-size: 16.5pt;
+            font-weight: 300;
+            line-height: 1.65;
+            appearance: none;
+            background: rgba(255, 255, 255, 0.025);
+            border-radius: 5px;
+            border: solid 2px rgba(255, 255, 255, 0.125);
+            color: #fff;
+            display: block;
+            outline: 0;
+            padding: 10px;
+            text-decoration: none;
+            width: 190%;
+            background-size: 1.25rem;
+            background-repeat: no-repeat;
+            background-position: calc(100% - 1rem) center;
+            text-overflow: ellipsis;
+            height: auto;
+        }
+    </style>
 </head>
+
 <body>
-    <h1>Adicionar tarefas</h1>
+    <h1>Agenda e rotina</h1>
+    <div class="container">
+        <table class="calendar">
+            <thead>
+                <tr>
+                    <th>DOM.</th>
+                    <th>SEG.</th>
+                    <th>TER.</th>
+                    <th>QUA.</th>
+                    <th>QUI.</th>
+                    <th>SEX.</th>
+                    <th>SÁB.</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="day" data-day="1">1</td>
+                    <td class="day" data-day="2">2</td>
+                    <td class="day" data-day="3">3</td>
+                    <td class="day" data-day="4">4</td>
+                    <td class="day" data-day="5">5</td>
+                    <td class="day" data-day="6">6</td>
+                    <td class="day" data-day="7">7</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="8">8</td>
+                    <td class="day" data-day="9">9</td>
+                    <td class="day" data-day="10">10</td>
+                    <td class="day" data-day="11">11</td>
+                    <td class="day" data-day="12">12</td>
+                    <td class="day" data-day="13">13</td>
+                    <td class="day" data-day="14">14</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="15">15</td>
+                    <td class="day" data-day="16">16</td>
+                    <td class="day" data-day="17">17</td>
+                    <td class="day" data-day="18">18</td>
+                    <td class="day" data-day="19">19</td>
+                    <td class="day" data-day="20">20</td>
+                    <td class="day" data-day="21">21</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="22">22</td>
+                    <td class="day" data-day="23">23</td>
+                    <td class="day" data-day="24">24</td>
+                    <td class="day" data-day="25">25</td>
+                    <td class="day" data-day="26">26</td>
+                    <td class="day" data-day="27">27</td>
+                    <td class="day" data-day="28">28</td>
+                </tr>
+                <tr>
+                    <td class="day" data-day="29">29</td>
+                    <td class="day" data-day="30">30</td>
+                    <td class="day" data-day="31">31</td>
+                    <td colspan="4"></td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="sidebar">
+            <form id="formularioDeAdicaoDeTarefa">
+                <h2>Adicionar Tarefas</h2>
+                <ul id="lista-de-tarefas"> </ul>
+            </form>
+            <div class="button-group">
+                <button id="add-task-btn" class="btn">Adicionar tarefa</button>
+            </div>
+            <form id="add-task-form" style="display: none;">
+                <label for="task-name">Nome da tarefa:</label>
+                <input type="text" id="task-name" name="task-name"><br>
+                <label for="task-day">Dia da tarefa:</label>
+                <select id="task-day" name="task-day">
+                    <!-- Opções de dias -->
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <!-- Continue para os dias 3 a 31 -->
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                    <option value="6">6</option>
+                    <option value="7">7</option>
+                    <option value="8">8</option>
+                    <option value="9">9</option>
+                    <option value="10">10</option>
+                    <option value="11">11</option>
+                    <option value="12">12</option>
+                    <option value="13">13</option>
+                    <option value="14">14</option>
+                    <option value="15">15</option>
+                    <option value="16">16</option>
+                    <option value="17">17</option>
+                    <option value="18">18</option>
+                    <option value="19">19</option>
+                    <option value="20">20</option>
+                    <option value="21">21</option>
+                    <option value="22">22</option>
+                    <option value="23">23</option>
+                    <option value="24">24</option>
+                    <option value="25">25</option>
+                    <option value="26">26</option>
+                    <option value="27">27</option>
+                    <option value="28">28</option>
+                    <option value="29">29</option>
+                    <option value="30">30</option>
+                    <option value="31">31</option>
+                </select><br><br>
+                <input type="submit" value="Adicionar tarefa">
+            </form>
+            <div id="gerenciamento-de-tarefas">
+                <h2>Tarefas Adicionadas</h2>
+                <ul id="lista-de-tarefas-gerenciamento"></ul>
+            </div>
+        </div>
+        <script>
+            const addTaskBtn = document.getElementById('add-task-btn');
+            const addTaskForm = document.getElementById('add-task-form');
+
+            addTaskBtn.addEventListener('click', () => {
+                addTaskForm.style.display = 'block';
+            });
+
+            addTaskForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const taskName = document.getElementById('task-name').value;
+                const taskDay = document.getElementById('task-day').value;
+
+                const calendarCells = document.querySelectorAll('.calendar td.day');
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const taskList = cell.querySelector('ul') || document.createElement('ul');
+                        if (!cell.querySelector('ul')) {
+                            cell.appendChild(taskList);
+                        }
+                        const taskListItem = document.createElement('li');
+                        taskListItem.textContent = taskName;
+                        taskList.appendChild(taskListItem);
+                    }
+                });
+
+                addTaskToManagement(taskName, taskDay);
+
+                addTaskForm.style.display = 'none';
+                document.getElementById('task-name').value = '';
+            });
+
+            function addTaskToManagement(taskName, taskDay) {
+                const taskManagementList = document.getElementById('lista-de-tarefas-gerenciamento');
+                const listItem = document.createElement('li');
+                listItem.textContent = `${taskName} - Dia ${taskDay}`;
+
+                const editButton = document.createElement('button');
+                editButton.textContent = 'Editar';
+                editButton.className = 'btn'; // Aplica o estilo de botão
+                editButton.addEventListener('click', () => {
+                    editTask(listItem, taskName, taskDay);
+                });
+
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = 'Excluir';
+                deleteButton.className = 'btn'; // Aplica o estilo de botão
+                deleteButton.addEventListener('click', () => {
+                    listItem.remove();
+                    removeTaskFromCalendar(taskName, taskDay);
+                });
+
+                listItem.appendChild(editButton);
+                listItem.appendChild(deleteButton);
+                taskManagementList.appendChild(listItem);
+            }
+
+            function removeTaskFromCalendar(taskName, taskDay) {
+                const calendarCells = document.querySelectorAll('.calendar td.day');
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const tasks = cell.querySelectorAll('ul li');
+                        tasks.forEach((task) => {
+                            if (task.textContent === taskName) {
+                                task.remove();
+                            }
+                        });
+                    }
+                });
+            }
+
+            function editTask(listItem, oldTaskName, oldTaskDay) {
+                const newTaskName = prompt('Editar nome da tarefa:', oldTaskName);
+                if (newTaskName) {
+                    listItem.firstChild.textContent = `${newTaskName} - Dia ${oldTaskDay}`;
+                    updateTaskInCalendar(oldTaskName, oldTaskDay, newTaskName);
+                }
+            }
+
+            function updateTaskInCalendar(oldTaskName, taskDay, newTaskName) {
+                const calendarCells = document.querySelectorAll('.calendar td.day');
+                calendarCells.forEach((cell) => {
+                    if (cell.dataset.day === taskDay) {
+                        const tasks = cell.querySelectorAll('ul li');
+                        tasks.forEach((task) => {
+                            if (task.textContent === oldTaskName) {
+                                task.textContent = newTaskName;
+                            }
+                        });
+                    }
+                });
+            }
+
+            const today = new Date();
+            const todayDay = today.getDate();
+            const calendarCells = document.querySelectorAll('.calendar td.day');
+
+            calendarCells.forEach((cell) => {
+                if (cell.dataset.day == todayDay) {
+                    cell.classList.add('today');
+                }
+            });
+        </script>
+    </div>
 </body>
 </html>
