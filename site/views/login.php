@@ -86,17 +86,6 @@
 	</script>
 	<!--===============================================================================================-->
 	<script src="js/main.js"></script>
-
-	<script>
-		document.querySelector(".login100-form").addEventListener("submit", function(event) {
-			// Cancelar a ação padrão do formulário
-			event.preventDefault();
-		
-			window.location.href = "../index.html";
-		});
-	</script>
-	
-	
 </body>
 
 </html>

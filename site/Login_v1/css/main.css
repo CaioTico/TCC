@@ -190,6 +190,24 @@ iframe {
   justify-content: space-between;
   padding: 177px 130px 33px 95px;
 }
+.caixa-cadastro {
+  width: 960px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+  padding: 80px 80px 80px 80px;
+}
+.centro-form{
+  display: flex;
+  flex-direction: column; /* Coloca os elementos em coluna */
+  align-items: center; /* Centraliza horizontalmente */
+  justify-content: center; /* Centraliza verticalmente */
+}
+.centro-form > a{
+  margin-top: 40px;
+}
 
 /*------------------------------------------------------------------
 [  ]*/
@@ -210,6 +228,8 @@ iframe {
 [  ]*/
 .login100-form {
   width: 290px;
+  justify-content: center;
+  align-items: center;
 }
 
 .login100-form-title {
