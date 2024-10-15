@@ -1,33 +1,36 @@
 <?php
 
-// Requer arquivo 'user.php' que contem o model user com as funções para manipulação de dados de usário
+// Requer arquivo 'user.php' que contém o model User com as funções para manipulação de dados de usuário
 require_once 'models/user.php';
 
 class AuthController
 {
-    // Cria função responsável pelo processo de login
+    // Função responsável pelo processo de login
     public function login()
     {
         // Verifica se a requisição HTTP é do tipo POST, ou seja, se o formulário foi enviado
-        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $email = $_POST['email'];
             $senha = $_POST['senha'];
 
+            // Busca o usuário pelo email
             $user = User::findByEmail($email);
 
-            if($user && password_verify($senha, $user['senha'])){ // Verifica se a senha corresponde a um hash
+            // Verifica se o usuário existe e se a senha corresponde ao hash
+            if ($user && password_verify($senha, $user['senha'])) {
                 session_start();
 
-                // Armazena na sessão o ID do usuário e seu perfil
+                // Armazena na sessão o ID do usuário
                 $_SESSION['usuario_id'] = $user['id'];
 
-                header('Location: index.php?action=dashboard');
-
-            }else{
+                // Redireciona para a página index.html
+                header('Location: index.html?action=index');
+                exit(); // Encerra o script após o redirecionamento
+            } else {
                 echo "Email ou senha incorretos";
             }          
-        }else{
-            // Se a requisição não for POST (por exemplo, GET), carrega a página de registro
+        } else {
+            // Se a requisição não for POST, carrega a página de login
             include 'views/login.php';
         }
     }
