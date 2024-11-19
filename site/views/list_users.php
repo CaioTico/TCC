@@ -1,3 +1,9 @@
+<?php
+    session_start();
+
+    if(isset($_SESSION['perfil'])):
+?>
+
 <!DOCTYPE html>
 <html lang="pt-br">
  
@@ -5,10 +11,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Usuários</title>
-    <link rel="stylesheet" type='text/css' media='screen' href="css/list.css"> <!-- Link para o arquivo CSS -->
 </head>
- 
-<body class=""> <!-- Define a classe com base no perfil do usuário -->
+
+<body class="<?= $_SESSION['perfil'] ?> "> <!-- Define a classe com base no perfil do usuário -->
     <div class="container">
         <h2>Lista de Usuários</h2>
         <table class="styled-table">
@@ -17,24 +22,38 @@
                     <th>ID</th>
                     <th>Nome</th>
                     <th>Email</th>
+                    <th>Perfil</th>
                     <th>Ações</th>
                 </tr>
             </thead>
             <tbody>
- 
+            <?php foreach($users as $user): ?>
                 <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td><?= $user['id'] ?></td>
+                    <td><?= $user['nome'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                    <td><?= $user['perfil'] ?></td>
+                    <td>
+                        <?php if($_SESSION['perfil'] == 'admin' || $_SESSION['perfil'] == 'gestor'): ?>
+                            <a href="index.php?action=edit&id=<?= $user['id'] ?>">Editar</a>
+                        <?php endif; ?>
+
+                        <!-- Insere botão de exclusão apenas para perfil admin -->
+                        <?php if($_SESSION['perfil'] == 'admin'): ?>
+                            <a href="index.php?action=delete&id=<?= $user['id'] ?>">Excluir</a>
+                        <?php endif; ?>
+                    </td>
                 </tr>
- 
+            <?php endforeach; ?>
             </tbody>
         </table>
  
-        <a href="" class="btn">Voltar ao Dashboard</a>
+        <a href="index.php?action=dashboard" class="btn">Voltar ao Dashboard</a>
     </div>
 </body>
  
 </html>
+
+<?php else: ?>
+    <p>Erro: Você não tem permissão para visualizar essa página</p>
+<?php endif; ?>

@@ -1,38 +1,39 @@
 <?php
-
-// Requer arquivo 'user.php' que contém o model User com as funções para manipulação de dados de usuário
+// Requer arquivo 'user.php' que contem o model user com as funções para manipulação de dados de usuários
 require_once 'models/user.php';
 
 class AuthController
 {
-    // Função responsável pelo processo de login
+    // Cria função responsável pelo processo de login
     public function login()
     {
         // Verifica se a requisição HTTP é do tipo POST, ou seja, se o formulário foi enviado
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
             $email = $_POST['email'];
             $senha = $_POST['senha'];
 
-            // Busca o usuário pelo email
             $user = User::findByEmail($email);
 
-            // Verifica se o usuário existe e se a senha corresponde ao hash
-            if ($user && password_verify($senha, $user['senha'])) {
+            if($user && password_verify($senha, $user['senha'])){// Verifica se a senha corresponde a um hash
                 session_start();
-
-                // Armazena na sessão o ID do usuário
+                //Armazena na sessão o ID do usuário e seu perfil
                 $_SESSION['usuario_id'] = $user['id'];
+                $_SESSION['perfil']     = $user['perfil'];
 
-                // Redireciona para a página index.html
-                header('Location: index.html?action=index');
-                exit(); // Encerra o script após o redirecionamento
-            } else {
+                header('Location: index.php?action=dashboard');
+            }else{
                 echo "Email ou senha incorretos";
-            }          
-        } else {
-            // Se a requisição não for POST, carrega a página de login
+            }
+        }else{
+            // Se a requisição não for POST (por exemplo, GET), carrega a página de registro
             include 'views/login.php';
         }
+    }
+
+    public function logout(){
+        session_start();
+        session_destroy();
+        header('Location: index.php');
     }
 }
 ?>

@@ -1,9 +1,4 @@
 <!DOCTYPE HTML>
-<!--
-	Solid State por HTML5 UP
-	html5up.net | @ajlkn
-	Gratuito para uso pessoal e comercial sob a licença CCA 3.0 (html5up.net/license)
--->
 <html>
 
 <head>
@@ -16,6 +11,7 @@
 	</noscript>
 	<link rel="shortcut icon" href="./images/favicon-zen.ico" type="image/x-icon">
 	<script type="text/javascript" async src="https://d335luupugsy2.cloudfront.net/js/loader-scripts/d963c83c-403a-41a4-8a33-74ed4d408394-loader.js" ></script>
+	
 
 </head>
 
@@ -37,7 +33,10 @@
 				<h2>Menu</h2>
 				<ul class="links">
 					<li><a href="index.html">Início</a></li>
-					<li><a href="index.php?action=login">Entrar/Cadastrar</a></li>
+					<?php if ($_SESSION['perfil'] === 'admin') { ?>
+						<li><a href="index.php?action=list">Gerenciar Usuários</a></li>
+					<?php } ?>
+					<li><a href="index.php?action=logout">Logout</a></li>
 				</ul>
 				<a href="#" class="close">Fechar</a>
 			</div>
@@ -215,6 +214,8 @@
 	<script src="assets/js/breakpoints.min.js"></script>
 	<script src="assets/js/util.js"></script>
 	<script src="assets/js/main.js"></script>
+
+	
 
 </body>
 
