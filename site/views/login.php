@@ -20,6 +20,7 @@
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css" href=".//Login_v1/css/main.css">
     <link rel="stylesheet" type="text/css" href=".//Login_v1/css/util.css">
+    <link rel="shortcut icon" href="./images/favicon-zen.ico" type="image/x-icon">
     <!--===============================================================================================-->
 </head>
 

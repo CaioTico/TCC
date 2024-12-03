@@ -2365,8 +2365,13 @@ select {
 }
 
 select option {
-	color: #ffffff;
-	background: #2e3141;
+	color: #1a0c74;
+	background: white;
+}
+
+select option::after {
+	color: white;
+	background: #1a0c74;
 }
 
 select:focus::-ms-value {
